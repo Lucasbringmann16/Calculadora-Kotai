@@ -104,8 +104,19 @@
         
         #resBRL { color: #00f3ff; text-shadow: 0 0 8px var(--neon-blue); }
 
-        .loading-text { font-size: 0.9rem; color: #aaa; margin-top: 10px; margin-bottom: 20px;}
-        
+        .loading-text { 
+            font-size: 0.9rem; 
+            color: #aaa; 
+            margin: 10px 0 2px;
+        }
+
+        .source-info {
+            font-size: 0.72rem;
+            color: #555;
+            opacity: 0.6;
+            margin: 0 0 15px;
+        }
+
         .social-footer {
             display: flex;
             justify-content: center;
@@ -149,15 +160,16 @@
         <div class="results">
             <div class="result-item">
                 <span>Total em USD:</span>
-                <span class="value" id="resUSD">$ 0.00</span>
+                <span class="value" id="resUSD">$ 0,00</span>
             </div>
             <div class="result-item">
                 <span>Total em BRL:</span>
-                <span class="value" id="resBRL">R$ 0.00</span>
+                <span class="value" id="resBRL">R$ 0,00</span>
             </div>
         </div>
 
         <p class="loading-text" id="statusMsg">Carregando cotação...</p>
+        <div class="source-info" id="sourceInfo"></div>
 
         <div class="social-footer">
             <a href="https://youtube.com/@kotailabs" target="_blank" class="social-link" title="YouTube">
@@ -172,44 +184,81 @@
 </div>
 
 <script>
-    let dollarRate = 5.80; // valor fallback inicial (ajuste se quiser)
+    let dollarRate = 5.80;
+    const statusMsg = document.getElementById('statusMsg');
+    const sourceInfo = document.getElementById('sourceInfo');
     const priceInput = document.getElementById('tokenPrice');
     const amountInput = document.getElementById('tokenAmount');
-    const statusMsg = document.getElementById('statusMsg');
 
     async function loadDollarRate() {
+        statusMsg.innerText = "Buscando cotação...";
+        statusMsg.style.color = "#aaa";
+        sourceInfo.innerText = '';
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 500); // 500ms max para Awesome
+
         try {
-            statusMsg.innerText = "Buscando cotação...";
-            statusMsg.style.color = "#aaa";
+            // Tenta AwesomeAPI com timeout de 500ms
+            const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL', {
+                signal: controller.signal,
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1'
+                }
+            });
 
-            const response = await fetch('https://open.er-api.com/v6/latest/USD');
-            
-            if (!response.ok) {
-                throw new Error(`Erro na API: ${response.status}`);
-            }
+            clearTimeout(timeoutId);
 
-            const data = await response.json();
-            dollarRate = data.rates.BRL;
+            if (!res.ok) throw new Error('AwesomeAPI status ' + res.status);
+
+            const data = await res.json();
+            dollarRate = parseFloat(data.USDBRL.bid);
+
+            if (isNaN(dollarRate) || dollarRate <= 0) throw new Error('Valor inválido');
 
             statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
             statusMsg.style.color = "#00f3ff";
-            
-            calculate(); // recalcula com a nova cotação
-        } catch (error) {
-            console.error("Erro ao carregar cotação:", error);
-            statusMsg.innerText = `Erro na cotação. Usando R$ ${dollarRate.toFixed(2)} (valor anterior ou fallback)`;
+            sourceInfo.innerText = '(AwesomeAPI)';
+            calculate();
+            return; // sucesso dentro de 500ms → usa Awesome
+        } catch (err) {
+            // Timeout de 500ms ou erro qualquer → cai direto para OpenER
+            console.warn('AwesomeAPI não respondeu em 500ms ou erro:', err.message || err);
+        }
+
+        // Fallback OpenER
+        try {
+            const fallbackRes = await fetch('https://open.er-api.com/v6/latest/USD', {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1'
+                }
+            });
+
+            if (!fallbackRes.ok) throw new Error('OpenER status ' + fallbackRes.status);
+
+            const data = await fallbackRes.json();
+            dollarRate = parseFloat(data.rates.BRL);
+
+            if (isNaN(dollarRate) || dollarRate <= 0) throw new Error('Valor inválido');
+
+            statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
+            statusMsg.style.color = "#00f3ff";
+            sourceInfo.innerText = '(OpenER – fallback)';
+            calculate();
+        } catch (fallbackErr) {
+            console.error('Fallback falhou:', fallbackErr);
+            statusMsg.innerText = `Erro ao carregar. Usando R$ ${dollarRate.toFixed(2)}`;
             statusMsg.style.color = "#ff5555";
+            sourceInfo.innerText = '(fallback fixo)';
+            calculate();
         }
     }
 
-    // Carrega a cotação ao abrir a página
     window.onload = function() {
         loadDollarRate();
-        // Atualiza automaticamente a cada 5 minutos (300000 ms)
         setInterval(loadDollarRate, 5 * 60 * 1000);
     };
 
-    // Eventos de input
     priceInput.addEventListener('input', calculate);
     
     amountInput.addEventListener('input', function(e) {
@@ -228,7 +277,7 @@
         const rawAmount = amountInput.value.replace(/\./g, "");
         const amount = parseFloat(rawAmount) || 0;
 
-        if (price <= 0 || amount <= 0) {
+        if (price <= 0 || amount <= 0 || isNaN(dollarRate)) {
             document.getElementById('resUSD').innerText = "$ 0,00";
             document.getElementById('resBRL').innerText = "R$ 0,00";
             return;
