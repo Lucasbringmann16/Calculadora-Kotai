@@ -9,7 +9,7 @@
         :root {
             --neon-blue: #00f3ff;
             --deep-bg: #020b14;
-            --panel-bg: rgba(6, 22, 40, 0.9);
+            --panel-bg: rgba(6, 22, 40, 0.94);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,13 +28,17 @@
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 450px; padding: 20px; }
+        .container { 
+            width: 100%; 
+            max-width: 460px;
+            padding: 20px; 
+        }
 
         .calculator-card {
             background: var(--panel-bg);
             border: 1px solid var(--neon-blue);
-            border-radius: 15px;
-            padding: 30px;
+            border-radius: 12px;
+            padding: 24px 20px;
             box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
             text-align: center;
         }
@@ -42,95 +46,166 @@
         h1 {
             font-family: 'Orbitron', sans-serif;
             color: var(--neon-blue);
-            margin-bottom: 5px;
+            font-size: 2.2rem;
+            margin-bottom: 6px;
             text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        .subtitle { color: #a0c4ff; margin-bottom: 25px; letter-spacing: 1px; }
+        .subtitle { 
+            color: #a0c4ff; 
+            font-size: 1rem; 
+            margin-bottom: 20px; 
+        }
+
+        .plans-container {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .plan-card {
+            flex: 1;
+            max-width: 110px;
+            background: rgba(0, 0, 0, 0.55);
+            border-radius: 8px;
+            padding: 12px 8px 14px;
+            text-align: center;
+            transition: all 0.25s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 243, 255, 0.3);
+        }
+
+        .plan-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: var(--neon-blue);
+            margin-bottom: 6px;
+            text-shadow: 0 0 6px var(--neon-blue);
+        }
+
+        .plan-display {
+            width: 100%;
+            height: 44px;
+            margin: 6px 0 8px;
+            border: 1.5px solid var(--neon-blue);
+            border-radius: 6px;
+            background: rgba(0, 243, 255, 0.10);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .plan-qtd {
+            flex: 1;
+            text-align: center;
+            min-width: 38px;
+        }
+
+        .plan-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;               /* reforçado para ficar 100% redondo */
+            background: rgba(0, 243, 255, 0.28);
+            border: 1.5px solid var(--neon-blue);
+            color: white;
+            font-size: 1.15rem;               /* levemente menor pra equilíbrio */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .plan-btn:hover {
+            background: rgba(0, 243, 255, 0.60);
+            transform: scale(1.12);
+        }
+
+        .plan-tokens {
+            font-size: 0.68rem;
+            opacity: 0.8;
+            margin-top: 4px;
+            display: block;
+        }
 
         .input-group { margin-bottom: 20px; text-align: left; }
 
         label {
             display: block;
             color: var(--neon-blue);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-size: 1rem;
             font-family: 'Orbitron', sans-serif;
         }
 
         input {
             width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #335c6e;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(0, 243, 255, 0.45);
             color: white;
-            padding: 15px;
-            font-size: 1.3rem;
-            border-radius: 5px;
-            font-family: 'Rajdhani', sans-serif;
+            padding: 14px;
+            font-size: 1.35rem;
+            border-radius: 6px;
             outline: none;
-            transition: 0.3s;
+            transition: 0.25s;
         }
 
         input:focus {
             border-color: var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 14px rgba(0, 243, 255, 0.35);
         }
 
-        #tokenPrice { color: #00f3ff; font-weight: bold; }
-
         .results {
-            margin-top: 25px;
-            border-top: 1px solid rgba(0, 243, 255, 0.2);
-            padding-top: 20px;
-            background: rgba(0, 243, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(0, 243, 255, 0.22);
+            padding-top: 16px;
+            background: rgba(0, 243, 255, 0.04);
+            border-radius: 8px;
+            padding: 14px;
         }
 
         .result-item {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 1.1rem;
         }
 
         .value {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
-            color: white;
-            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            font-size: 1.45rem;
+            text-shadow: 0 0 5px rgba(255,255,255,0.25);
         }
         
-        #resBRL { color: #00f3ff; text-shadow: 0 0 8px var(--neon-blue); }
+        #resBRL { color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); }
 
-        .loading-text { 
-            font-size: 0.9rem; 
-            color: #aaa; 
-            margin: 10px 0 2px;
-        }
+        .loading-text { font-size: 0.88rem; color: #aaa; margin: 8px 0 2px; }
 
-        .source-info {
-            font-size: 0.72rem;
-            color: #555;
-            opacity: 0.6;
-            margin: 0 0 15px;
-        }
+        .source-info { font-size: 0.70rem; color: #555; opacity: 0.75; margin-bottom: 12px; }
 
         .social-footer {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            gap: 24px;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 243, 255, 0.18);
         }
 
         .social-link svg {
-            width: 28px;
-            height: 28px;
-            fill: rgba(0, 243, 255, 0.7);
-            transition: all 0.3s ease;
+            width: 26px;
+            height: 26px;
+            fill: rgba(0, 243, 255, 0.85);
+            transition: all 0.25s;
         }
 
         .social-link:hover svg {
@@ -146,6 +221,40 @@
     <div class="calculator-card">
         <h1>KotaiLabs</h1>
         <p class="subtitle">Calculadora em Tempo Real</p>
+
+        <div class="plans-container">
+
+            <div class="plan-card">
+                <div class="plan-title">PRATA</div>
+                <div class="plan-display">
+                    <button class="plan-btn" onclick="changeQtd('Prata', -1)">−</button>
+                    <span class="plan-qtd" id="displayPrata">0</span>
+                    <button class="plan-btn" onclick="changeQtd('Prata', 1)">+</button>
+                </div>
+                <span class="plan-tokens">1.925.000 KTI</span>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-title">OURO</div>
+                <div class="plan-display">
+                    <button class="plan-btn" onclick="changeQtd('Ouro', -1)">−</button>
+                    <span class="plan-qtd" id="displayOuro">0</span>
+                    <button class="plan-btn" onclick="changeQtd('Ouro', 1)">+</button>
+                </div>
+                <span class="plan-tokens">12.750.000 KTI</span>
+            </div>
+
+            <div class="plan-card">
+                <div class="plan-title">DIAMANTE</div>
+                <div class="plan-display">
+                    <button class="plan-btn" onclick="changeQtd('Diamante', -1)">−</button>
+                    <span class="plan-qtd" id="displayDiamante">0</span>
+                    <button class="plan-btn" onclick="changeQtd('Diamante', 1)">+</button>
+                </div>
+                <span class="plan-tokens">34.000.000 KTI</span>
+            </div>
+
+        </div>
 
         <div class="input-group">
             <label>PREÇO DO TOKEN (USD)</label>
@@ -175,7 +284,6 @@
             <a href="https://youtube.com/@kotailabs" target="_blank" class="social-link" title="YouTube">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
-
             <a href="https://www.instagram.com/kotailabsyt" target="_blank" class="social-link" title="Instagram">
                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
             </a>
@@ -185,73 +293,73 @@
 
 <script>
     let dollarRate = 5.80;
-    const statusMsg = document.getElementById('statusMsg');
+    const statusMsg  = document.getElementById('statusMsg');
     const sourceInfo = document.getElementById('sourceInfo');
     const priceInput = document.getElementById('tokenPrice');
     const amountInput = document.getElementById('tokenAmount');
+
+    const tokensPrata    = 1925000;
+    const tokensOuro     = 12750000;
+    const tokensDiamante = 34000000;
+
+    let qtd = { Prata: 0, Ouro: 0, Diamante: 0 };
+
+    function updateDisplaysAndCalculate() {
+        document.getElementById('displayPrata').textContent    = qtd.Prata;
+        document.getElementById('displayOuro').textContent     = qtd.Ouro;
+        document.getElementById('displayDiamante').textContent = qtd.Diamante;
+
+        const total = 
+            qtd.Prata    * tokensPrata +
+            qtd.Ouro     * tokensOuro +
+            qtd.Diamante * tokensDiamante;
+
+        amountInput.value = total > 0 ? new Intl.NumberFormat('pt-BR').format(total) : "";
+        calculate();
+    }
+
+    window.changeQtd = function(plano, delta) {
+        qtd[plano] = Math.max(0, qtd[plano] + delta);
+        updateDisplaysAndCalculate();
+    };
 
     async function loadDollarRate() {
         statusMsg.innerText = "Buscando cotação...";
         statusMsg.style.color = "#aaa";
         sourceInfo.innerText = '';
 
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 500); // 500ms max para Awesome
-
         try {
-            // Tenta AwesomeAPI com timeout de 500ms
-            const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL', {
-                signal: controller.signal,
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1'
-                }
+            const res = await fetch('https://economia.awesomeapi.com.br/json/last/USD-BRL', { 
+                signal: AbortSignal.timeout(500) 
             });
-
-            clearTimeout(timeoutId);
-
-            if (!res.ok) throw new Error('AwesomeAPI status ' + res.status);
-
             const data = await res.json();
             dollarRate = parseFloat(data.USDBRL.bid);
+            if (!isNaN(dollarRate) && dollarRate > 0) {
+                statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
+                statusMsg.style.color = "#00f3ff";
+                sourceInfo.innerText = '(AwesomeAPI)';
+                calculate();
+                return;
+            }
+        } catch {}
 
-            if (isNaN(dollarRate) || dollarRate <= 0) throw new Error('Valor inválido');
-
-            statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
-            statusMsg.style.color = "#00f3ff";
-            sourceInfo.innerText = '(AwesomeAPI)';
-            calculate();
-            return; // sucesso dentro de 500ms → usa Awesome
-        } catch (err) {
-            // Timeout de 500ms ou erro qualquer → cai direto para OpenER
-            console.warn('AwesomeAPI não respondeu em 500ms ou erro:', err.message || err);
-        }
-
-        // Fallback OpenER
         try {
-            const fallbackRes = await fetch('https://open.er-api.com/v6/latest/USD', {
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1'
-                }
-            });
-
-            if (!fallbackRes.ok) throw new Error('OpenER status ' + fallbackRes.status);
-
-            const data = await fallbackRes.json();
+            const res = await fetch('https://open.er-api.com/v6/latest/USD');
+            const data = await res.json();
             dollarRate = parseFloat(data.rates.BRL);
+            if (!isNaN(dollarRate) && dollarRate > 0) {
+                statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
+                statusMsg.style.color = "#00f3ff";
+                sourceInfo.innerText = '(OpenER – fallback)';
+                calculate();
+                return;
+            }
+        } catch {}
 
-            if (isNaN(dollarRate) || dollarRate <= 0) throw new Error('Valor inválido');
-
-            statusMsg.innerText = `Cotação: 1 USD = R$ ${dollarRate.toFixed(2)}`;
-            statusMsg.style.color = "#00f3ff";
-            sourceInfo.innerText = '(OpenER – fallback)';
-            calculate();
-        } catch (fallbackErr) {
-            console.error('Fallback falhou:', fallbackErr);
-            statusMsg.innerText = `Erro ao carregar. Usando R$ ${dollarRate.toFixed(2)}`;
-            statusMsg.style.color = "#ff5555";
-            sourceInfo.innerText = '(fallback fixo)';
-            calculate();
-        }
+        statusMsg.innerText = `Erro ao carregar. Usando R$ ${dollarRate.toFixed(2)}`;
+        statusMsg.style.color = "#ff5555";
+        sourceInfo.innerText = '(fallback fixo)';
+        calculate();
     }
 
     window.onload = function() {
