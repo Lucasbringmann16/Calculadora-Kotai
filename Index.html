@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Endereço - KotaiLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-cyan: #00e5ff;
+            --bg-dark: #070b13;
+            --grid-color: rgba(0, 229, 255, 0.04);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-dark);
+            /* Efeito de grade de fundo idêntico ao da imagem */
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+        }
+
+        .neon-button {
+            text-decoration: none;
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 18px 40px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 12px; /* Cantos arredondados estilo KotaiLabs */
+            background-color: rgba(0, 229, 255, 0.03);
+            /* Sombra externa e interna para o efeito neon */
+            box-shadow: 
+                0 0 15px rgba(0, 229, 255, 0.3),
+                inset 0 0 10px rgba(0, 229, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+        }
+
+        .neon-button:hover {
+            background-color: rgba(0, 229, 255, 0.1);
+            box-shadow: 
+                0 0 25px rgba(0, 229, 255, 0.6),
+                inset 0 0 15px rgba(0, 229, 255, 0.3);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            transform: translateY(-2px); /* Efeito de elevação ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://kotailabs.github.io/Calculadora-KotaiLabs/" class="neon-button">
+        Acessar novo link da calculadora
+    </a>
+
+</body>
+</html>
